@@ -1,7 +1,7 @@
 'use strict';
 
 fangApp.controller('MainCtrl', function($scope) {
-  $scope.awesomeThings = [
+  $scope.title = [
     'HTML5 Boilerplate',
     'AngularJS',
     'Testacular'
