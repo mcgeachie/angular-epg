@@ -1,5 +1,5 @@
 'use strict';
 
-fangApp.controller('WaysToWatchCtrl', function($scope) {
+fangApp.controller('WaysToWatchCtrl', ['$scope', function($scope) {
   $scope.message = 'Ways to Watch';
-});
+}]);

@@ -1,5 +1,5 @@
 'use strict';
 
-fangApp.controller('TvGuideCtrl', function($scope) {
+fangApp.controller('TvGuideCtrl', ['$scope', function($scope) {
   $scope.message = 'TV Guide';
-});
+}]);

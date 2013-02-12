@@ -1,6 +1,6 @@
 'use strict';
 
-fangApp.controller('CarouselCtrl', function($scope) {
+fangApp.controller('CarouselCtrl', ['$scope', function($scope) {
 
   $scope.carouselImage = "test.jpg";
-});
+}]);

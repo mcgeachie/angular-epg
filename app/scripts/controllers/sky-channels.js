@@ -1,5 +1,5 @@
 'use strict';
 
-fangApp.controller('SkyChannelsCtrl', function($scope) {
+fangApp.controller('SkyChannelsCtrl', ['$scope', function($scope) {
   $scope.message = 'Sky Channels';
-});
+}]);
