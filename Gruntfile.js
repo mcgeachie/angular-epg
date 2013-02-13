@@ -163,7 +163,13 @@ module.exports = function( grunt ) {
       optimize: 'none',
       baseUrl: './scripts',
       wrap: true
-    }
+    },
+
+      server: {
+          port: 3501,
+          base: 'app',
+          hostname: grunt.config('server.hostname') || 'localhost'
+      }
   });
 
   // Alias the `test` task to run `testacular` instead
@@ -175,4 +181,18 @@ module.exports = function( grunt ) {
       done(err);
     });
   });
+
+  grunt.registerTask('functional', 'Run functional tests with Geb', function() {
+      grunt.task.run('clean coffee compass');
+      grunt.task.run('grunt-server');
+      grunt.task.run('geb');
+  });
+
+    grunt.registerTask('geb', 'Run functional tests with Geb', function () {
+        var done = this.async();
+        require('child_process').exec('gradlew test', function (err, stdout) {
+            grunt.log.write(stdout);
+            done(err);
+        });
+    });
 };
