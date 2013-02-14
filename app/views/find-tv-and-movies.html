@@ -1,2 +1,13 @@
 <h1>FIND AND WATCH MOVIES</h1>
 <p>{{message}}</p>
+<section class="recommendations">
+	<figure data-ng-repeat="recommendation in recommendations">
+		<img data-ng-src="{{recommendation.img}}" alt="{{recommendation.title}}">
+		<figcaption>
+			<img data-ng-src="http://tv.sky.com/logo/124/30/skychb{{recommendation.channelId}}.png" alt="{{recommendation.channelName}}" class="channel-logo">
+			<h2>{{recommendation.title}}</h2>
+			<time datetime="{{recommendation.startTime | date:'yyyy-MM-ddTHH:mm'}}">{{recommendation.startTime | date:'EEEE h:mma'}}</time>
+			<p>{{recommendation.synopsis}}</p>
+		</figcaption>
+	</figure>
+</section>

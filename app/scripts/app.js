@@ -1,6 +1,6 @@
 'use strict';
 
-var fangApp = angular.module('fangApp', []);
+var fangApp = angular.module('fangApp', ['recommendationEngine']);
 fangApp.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider

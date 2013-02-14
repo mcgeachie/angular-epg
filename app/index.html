@@ -50,7 +50,7 @@
         <link rel="stylesheet" href="styles/main.css"/>
 
     </head>
-    <body ng-app="fangApp">
+    <body data-ng-app="mockRecEngine">
 
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
@@ -64,9 +64,12 @@
         <!-- Add your site or application content here -->
         <div class="container skycom_container" data-ng-include data-src="'views/main.html'"></div>
 
-        <script src="scripts/vendor/angular.js"></script>
+        <script src="scripts/vendor/angular.min.js"></script>
+        <script src="scripts/vendor/angular-resource.min.js"></script>
+        <script src="scripts/vendor/angular-mocks.js"></script>
 
         <!-- build:js scripts/scripts.js -->
+        <script src="scripts/services/rec-engine.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/carousel.js"></script>
@@ -75,6 +78,8 @@
         <script src="scripts/controllers/find-tv-and-movies.js"></script>
         <script src="scripts/controllers/sky-channels.js"></script>
         <script src="scripts/controllers/ways-to-watch.js"></script>
+
+        <script src="scripts/mocks/mock-rec-engine.js"></script>
         <!-- endbuild -->
 
     </body>
