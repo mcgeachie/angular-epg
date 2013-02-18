@@ -1,6 +1,6 @@
 'use strict';
 
-var fangApp = angular.module('fangApp', ['recommendationEngine']);
+var fangApp = angular.module('fangApp', ['recommendationEngine', 'epgFilters']);
 fangApp.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
@@ -42,4 +42,5 @@ fangApp.run(['$route', '$rootScope', function ($route, $rootScope) {
      if (data.$route && data.$route.controller)
          $rootScope.controller = data.$route.controller;
      })
+
 } ]);

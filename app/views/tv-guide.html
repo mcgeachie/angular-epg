@@ -1,2 +1,33 @@
-<h1>TV GUIDE</h1>
-<p>{{message}}</p>
+<div id="epg-app">
+    <ol class="epg-channels">
+        <li data-ng-repeat="channel in channels">
+            <span class="channel-text">{{channel.t}}</span>
+
+            <div id="channel-{{channel.c[0]}}" class="channel-container" title="{{channel.t}}">
+                <img class="channel-image"
+                     src="http://tv.sky.com/logo/80/35/skychb{{channel.c[0]}}.png"
+                     alt="{{channel.t}}"><span
+                    class="channel-number">{{channel.c[1]}}</span></div>
+        </li>
+    </ol>
+
+    <ol class="epg-time">
+        <li data-ng-repeat="hour in hours">{{hour | date:"h a"}}</li>
+    </ol>
+
+    <div class="epg-grid">
+        <div class="epg-row" data-ng-repeat="(channel, programmes) in listings" data-ng-class="oddOrEven($index)">
+            <programme data-ng-repeat="programme in programmes"/>
+            <!--<a  data-start-time="{{programme.s}}" data-duration="{{programme.m[1]}}">-->
+                <!--eventId: {{programme.m[0]}}<br/>-->
+                <!--duration: {{programme.m[1]}}<br/>-->
+                <!--channelId: {{channel}}<br/>-->
+                <!--startTime: {{programme.s}}<br/>-->
+                <!--title: {{programme.t}}<br/>-->
+            <!--</a>-->
+        </div>
+    </div>
+
+</div>
+<a id="programme-bubble-background" class="bubble-background hide" href="#"></a>
+<div id="programme-bubble" class="bubble hide"></div>

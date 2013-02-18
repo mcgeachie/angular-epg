@@ -1,0 +1,72 @@
+$one-hour-width: 250px;
+$grid-height: 300px;
+
+$time-height: 27px;
+
+$channel-width: 95px;
+$channel-height: 65px;
+
+@import "compass/typography";
+@import "reset";
+
+#epg-app {
+  position: relative;
+  width: 100%;
+  height: $grid-height;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.epg-channels, .epg-time, .epg-grid {
+  position: absolute;
+}
+
+.epg-time {
+  top: 0;
+  left: $channel-width;
+  @include nowrap;
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: $time-height;
+  line-height: $time-height;
+
+  li {
+    display: inline-block;
+    width: $one-hour-width;
+  }
+}
+
+.epg-channels {
+  top: $time-height;
+  width: $channel-width;
+
+  margin: 0;
+  padding: 0;
+
+  li {
+    height: $channel-height;
+  }
+}
+
+.epg-grid {
+  left: $channel-width;
+  top: $time-height;
+  width: $one-hour-width * 24;
+}
+
+.epg-row {
+  height: $channel-height;
+  width: 100%;
+  position: relative;
+}
+
+.epg-programme {
+  display: block;
+  height: $channel-height;
+  line-height: $channel-height;
+  position: absolute;
+  top: 0;
+  @include ellipsis;
+}

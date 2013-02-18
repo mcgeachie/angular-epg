@@ -4,6 +4,7 @@ import groovy.json.*
 class ResourceHandler implements HttpHandler {
 
     def proxy = 'http://tv.sky.com/'
+    def local = 'http://localhost:3501/'
     def server
 
     public void handle(HttpExchange exchange){
@@ -22,10 +23,9 @@ class ResourceHandler implements HttpHandler {
 
         } else {
 
-            path = ( path == '/' ) ? 'index.html' : path
-            def f = new File('app' + File.separator + path)
-            exchange.sendResponseHeaders(200, f.size());
-            exchange.getResponseBody().write(f.bytes);
+            def proxiedUrl = new URL( local + path ).bytes
+            exchange.sendResponseHeaders(200, proxiedUrl.size());
+            exchange.getResponseBody().write(proxiedUrl);
             exchange.close();
 
         }
