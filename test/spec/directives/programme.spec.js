@@ -46,6 +46,28 @@ describe('Directive: programme', function () {
         scope.$digest();
 
         expect(element.css('left')).toBe('500px');
-    })
+    });
+
+    it('should mark programmes shorter than 15 minutes as short', function() {
+        scope.programme = {
+            t: 'Mad Men',
+            m: [undefined, 900]
+        };
+
+        scope.$digest();
+
+        expect(element.hasClass('short')).toBeTruthy();
+    });
+
+    it('should not mark programmes longer than 15 minutes as short', function() {
+        scope.programme = {
+            t: 'Mad Men',
+            m: [undefined, 901]
+        };
+
+        scope.$digest();
+
+        expect(element.hasClass('short')).toBeFalsy();
+    });
 
 });

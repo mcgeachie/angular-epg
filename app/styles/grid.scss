@@ -1,5 +1,5 @@
 $one-hour-width: 250px;
-$grid-height: 300px;
+$grid-height: 600px;
 
 $time-height: 27px;
 
@@ -7,6 +7,8 @@ $channel-width: 95px;
 $channel-height: 65px;
 
 $grid-border-color: #ccc;
+
+$grid-text-color: #222;
 
 @import "compass/typography";
 @import "reset";
@@ -84,5 +86,28 @@ $grid-border-color: #ccc;
     width: 0 1px 1px 0;
     color: $grid-border-color;
     style: solid;
+  }
+
+  &.short {
+    padding: 0;
+    color: transparent;
+
+    &:before {
+      content: 'i';
+      text-align: center;
+      color: $grid-text-color;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      font: {
+        family: serif;
+        size: 1.5em;
+        style: italic;
+        weight: bold;
+      }
+    }
   }
 }
