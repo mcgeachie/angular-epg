@@ -6,6 +6,8 @@ $time-height: 27px;
 $channel-width: 95px;
 $channel-height: 65px;
 
+$grid-border-color: #ccc;
+
 @import "compass/typography";
 @import "reset";
 
@@ -32,6 +34,8 @@ $channel-height: 65px;
   height: $time-height;
   line-height: $time-height;
 
+  border-bottom: 1px solid $grid-border-color;
+
   li {
     display: inline-block;
     width: $one-hour-width;
@@ -44,6 +48,7 @@ $channel-height: 65px;
 
   margin: 0;
   padding: 0;
+  border-right: 1px solid $grid-border-color;
 
   li {
     height: $channel-height;
@@ -68,5 +73,12 @@ $channel-height: 65px;
   line-height: $channel-height;
   position: absolute;
   top: 0;
+
   @include ellipsis;
+  padding: 0 1em;
+  border: {
+    width: 0 1px 1px 0;
+    color: $grid-border-color;
+    style: solid;
+  }
 }
