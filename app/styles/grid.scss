@@ -65,6 +65,10 @@ $grid-border-color: #ccc;
   height: $channel-height;
   width: 100%;
   position: relative;
+
+  &:nth-child(2n) {
+    background-color: #eee;
+  }
 }
 
 .epg-programme {

@@ -16,15 +16,8 @@
     </ol>
 
     <div class="epg-grid">
-        <div class="epg-row" data-ng-repeat="(channel, programmes) in listings" data-ng-class="oddOrEven($index)">
+        <div class="epg-row" data-ng-repeat="(channel, programmes) in listings" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
             <programme data-ng-repeat="programme in programmes"/>
-            <!--<a  data-start-time="{{programme.s}}" data-duration="{{programme.m[1]}}">-->
-                <!--eventId: {{programme.m[0]}}<br/>-->
-                <!--duration: {{programme.m[1]}}<br/>-->
-                <!--channelId: {{channel}}<br/>-->
-                <!--startTime: {{programme.s}}<br/>-->
-                <!--title: {{programme.t}}<br/>-->
-            <!--</a>-->
         </div>
     </div>
 

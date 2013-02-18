@@ -12,8 +12,4 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', function($scope, $http) {
         return new Date(0, 0, 0, hour);
     });
 
-    $scope.oddOrEven = function (index) {
-        return index % 2 === 0 ? 'odd' : 'even';
-    }
-
 }]);
