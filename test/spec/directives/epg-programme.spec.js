@@ -5,20 +5,26 @@ describe('Directive: programme', function () {
     beforeEach(module('epgDirectives'));
 
     var element,
-        scope;
+        scope,
+        applyDirective;
 
     beforeEach(inject(function ($rootScope, $compile) {
-        scope = $rootScope;
-        element = angular.element('<programme/>');
-        element = $compile(element)(scope);
+        scope = $rootScope.$new();
+        element = angular.element('<epg-programme/>');
+
+        applyDirective = function() {
+            $compile(element)(scope);
+            scope.$digest();
+        }
     }));
 
-    it('should display title of programme', function () {
+    it('should display title of programme', function() {
         scope.programme = {
-            t: 'Mad Men'
+            t: 'Mad Men',
+            m: [undefined, 3600]
         };
 
-        scope.$digest();
+        applyDirective();
 
         expect(element.text()).toBe(scope.programme.t);
     });
@@ -29,7 +35,7 @@ describe('Directive: programme', function () {
             m: [undefined, 3600]
         };
 
-        scope.$digest();
+        applyDirective();
 
         expect(element.css('width')).toBe('250px');
     });
@@ -40,10 +46,11 @@ describe('Directive: programme', function () {
 
         scope.programme = {
             t: 'Mad Men',
+            m: [undefined, 3600],
             s: twoAm
         };
 
-        scope.$digest();
+        applyDirective();
 
         expect(element.css('left')).toBe('500px');
     });
@@ -54,7 +61,7 @@ describe('Directive: programme', function () {
             m: [undefined, 900]
         };
 
-        scope.$digest();
+        applyDirective();
 
         expect(element.hasClass('short')).toBeTruthy();
     });
@@ -65,7 +72,7 @@ describe('Directive: programme', function () {
             m: [undefined, 901]
         };
 
-        scope.$digest();
+        applyDirective();
 
         expect(element.hasClass('short')).toBeFalsy();
     });
