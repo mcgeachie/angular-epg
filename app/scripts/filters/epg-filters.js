@@ -4,7 +4,7 @@ angular.module('epgFilters', [])
     .filter('durationInPixels', ['oneHourInPixels', 'oneHourInSeconds', function (oneHourInPixels, oneHourInSeconds) {
         return function(durationInSeconds) {
             var hours = (durationInSeconds / oneHourInSeconds);
-            return (hours * oneHourInPixels) + 'px';
+            return parseInt(hours * oneHourInPixels) + 'px';
         };
     }])
     .filter('startTimeInPixels', ['oneHourInPixels', 'oneHourInSeconds', function (oneHourInPixels, oneHourInSeconds) {
@@ -14,7 +14,6 @@ angular.module('epgFilters', [])
 
             var secondsFromMidnight = startTimeInSecondsFromEpoch - (midnight.getTime() / 1000);
             var hoursFromMidnight = secondsFromMidnight / oneHourInSeconds;
-
-            return (hoursFromMidnight * oneHourInPixels) + 'px';
+            return parseInt(hoursFromMidnight * oneHourInPixels) + 'px';
         };
     }]);
