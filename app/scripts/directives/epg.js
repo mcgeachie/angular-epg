@@ -14,9 +14,6 @@ angular.module('epgDirectives', ['epgFilters'])
         restrict: 'E',
         replace: true,
         link: function(scope, element) {
-
-            console.error('link', scope, element);
-//            alert(scope.programme);
             element.css('width', $filter('durationInPixels')(scope.programme.m[1]))
                 .css('left', $filter('startTimeInPixels')(scope.programme.s));
         }
