@@ -87,27 +87,31 @@ $grid-text-color: #222;
     color: $grid-border-color;
     style: solid;
   }
+}
 
-  &.short {
-    padding: 0;
+.short {
+  padding: 0;
+  -ms-text-overflow: clip;
+
+  &, &:after {
     color: transparent;
+  }
 
-    &:before {
-      content: 'i';
-      text-align: center;
-      color: $grid-text-color;
+  &:before {
+    content: 'i';
+    text-align: center;
+    color: $grid-text-color;
 
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 
-      font: {
-        family: serif;
-        size: 1.5em;
-        style: italic;
-        weight: bold;
-      }
+    font: {
+      family: serif;
+      size: 1.5em;
+      style: italic;
+      weight: bold;
     }
   }
 }
