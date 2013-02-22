@@ -35,18 +35,26 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         return programmes;
     };
 
-    $scope.$on('epg:chunksChanged', function(event, chunkNumbersInView) {
-        console.log('it changed!', event.name, chunkNumbersInView.x, chunkNumbersInView.y);
-        _.each($scope.chunksInView, function(item, index) {
-                if (index < chunkNumbersInView.x[0] || index > chunkNumbersInView.x[1]) {
-                    console.log('removing chunk '+index);
-                    $scope.chunksInView[index] = undefined;
-                }
-            }
-        );
+    $scope.findChannelsInView = function(chunkNumbersInView) {
+        var channelsInView = [];
+        if ($scope.channels) {
+            _.each(_.range(chunkNumbersInView.y[0], chunkNumbersInView.y[1] + 1), function(y) {
+                _.each(_.range(y * 10, (y + 1) * 10), function(channelIndex) {
+                    var channel = $scope.channels[channelIndex];
+                    if (channel) {
+                        channelsInView.push(channel.c[0])
+                    }
+                });
+            });
+        }
+        console.log(channelsInView);
+    };
+
+    $scope.populateChunksInView = function(chunkNumbersInView) {
         _.each(_.range(chunkNumbersInView.x[0], chunkNumbersInView.x[1] + 1), function(x) {
             if ($scope.chunksInView[x] === undefined) {
                 console.log('requesting chunk', x);
+                $scope.findChannelsInView(chunkNumbersInView);
                 $http.get(chunkUrl(x)).success(function(data) {
                     console.log('got back', x, data.listings);
                     $scope.chunksInView[x] = data.listings;
@@ -56,6 +64,21 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
                 console.log('already got chunk', x);
             }
         });
+    };
+
+    $scope.removeChunksNotInView = function(chunkNumbersInView) {
+        for (var index in $scope.chunksInView) {
+            if (index < chunkNumbersInView.x[0] || index > chunkNumbersInView.x[1]) {
+                console.log('removing chunk '+index);
+                $scope.chunksInView[index] = undefined;
+            }
+        }
+    };
+
+    $scope.$on('epg:chunksChanged', function(event, chunkNumbersInView) {
+        console.log('it changed!', event.name, chunkNumbersInView.x, chunkNumbersInView.y);
+        $scope.removeChunksNotInView(chunkNumbersInView);
+        $scope.populateChunksInView(chunkNumbersInView);
     });
 
 }]);
