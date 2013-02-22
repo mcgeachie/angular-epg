@@ -39,7 +39,7 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         console.log('it changed!', event.name, chunkNumbersInView.x, chunkNumbersInView.y);
         _.each($scope.chunksInView, function(item, index) {
                 if (index < chunkNumbersInView.x[0] || index > chunkNumbersInView.x[1]) {
-
+                    console.log('removing chunk '+index);
                     $scope.chunksInView[index] = undefined;
                 }
             }
