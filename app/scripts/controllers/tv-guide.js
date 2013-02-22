@@ -17,7 +17,7 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         return new Date(0, 0, 0, hour);
     });
 
-    $scope.stuff = {};
+    $scope.allProgrammesInChannels = {};
 
     $scope.allProgrammes = function() {
         var programmes = {};
@@ -50,7 +50,7 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
                 $http.get(chunkUrl(x)).success(function(data) {
                     console.log('got back', x, data.listings);
                     $scope.chunksInView[x] = data.listings;
-                    $scope.stuff = $scope.allProgrammes();
+                    $scope.allProgrammesInChannels = $scope.allProgrammes();
                 });
             } else {
                 console.log('already got chunk', x);

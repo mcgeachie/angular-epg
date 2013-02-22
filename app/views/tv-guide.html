@@ -16,7 +16,7 @@
     </ol>
 
     <div class="epg-grid">
-        <div class="epg-row" data-ng-repeat="(channel, programmes) in stuff" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
+        <div class="epg-row" data-ng-repeat="(channel, programmes) in allProgrammesInChannels" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
             <epg-programme data-ng-repeat="programme in programmes"/>
         </div>
     </div>

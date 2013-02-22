@@ -21,24 +21,19 @@ epgDirectives.directive('epg', function() {
             $scope.onChunkChange = function() {
                 $scope.$emit('epg:chunksChanged', $scope.chunks);
             };
-            $scope.checkIfChunksHaveChanged = function() {
-                var chunksBefore = $scope.chunks;
-                $scope.updateChunksInView();
-                var chunksAfter = $scope.chunks;
-                if (!_.isEqual(chunksBefore, chunksAfter)) {
-                    $scope.onChunkChange();
-                }
-            };
+            $scope.$watch('chunks', $scope.onChunkChange, true);
         }],
         link: function(scope, element) {
             element.dragscrollable({
                 dragSelector: '.epg-grid, .epg-time'
             });
             element.on('scroll', function() {
-                scope.checkIfChunksHaveChanged();
+                scope.$apply(function() {
+                    scope.updateChunksInView();
+                });
             });
 
-            scope.checkIfChunksHaveChanged();
+            scope.updateChunksInView();
         }
     };
 });
