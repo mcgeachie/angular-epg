@@ -17,6 +17,8 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         return new Date(0, 0, 0, hour);
     });
 
+    $scope.stuff = {};
+
     $scope.allProgrammes = function() {
         var programmes = {};
         for (var i in $scope.chunksInView) {
@@ -33,14 +35,22 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         return programmes;
     };
 
-    $scope.$on('epg:chunksChanged', function(event, chunksInView) {
-        console.log('it changed!', event.name, chunksInView.x, chunksInView.y);
-        _.each(_.range(chunksInView.x[0], chunksInView.x[1] + 1), function(x) {
+    $scope.$on('epg:chunksChanged', function(event, chunkNumbersInView) {
+        console.log('it changed!', event.name, chunkNumbersInView.x, chunkNumbersInView.y);
+        _.each($scope.chunksInView, function(item, index) {
+                if (index < chunkNumbersInView.x[0] || index > chunkNumbersInView.x[1]) {
+
+                    $scope.chunksInView[index] = undefined;
+                }
+            }
+        );
+        _.each(_.range(chunkNumbersInView.x[0], chunkNumbersInView.x[1] + 1), function(x) {
             if ($scope.chunksInView[x] === undefined) {
                 console.log('requesting chunk', x);
                 $http.get(chunkUrl(x)).success(function(data) {
                     console.log('got back', x, data.listings);
                     $scope.chunksInView[x] = data.listings;
+                    $scope.stuff = $scope.allProgrammes();
                 });
             } else {
                 console.log('already got chunk', x);

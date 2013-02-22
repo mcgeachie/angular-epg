@@ -3,7 +3,7 @@
 var epgDirectives = angular.module('epgDirectives', ['epgFilters']);
 
 epgDirectives.constant('chunkHeight', 65 * 10);
-epgDirectives.constant('chunkWidth', 250 * 4);
+epgDirectives.constant('chunkWidth', 250 * 6);
 
 epgDirectives.directive('epg', function() {
     return {
@@ -21,19 +21,24 @@ epgDirectives.directive('epg', function() {
             $scope.onChunkChange = function() {
                 $scope.$emit('epg:chunksChanged', $scope.chunks);
             };
-            $scope.$watch('chunks', $scope.onChunkChange, true);
+            $scope.checkIfChunksHaveChanged = function() {
+                var chunksBefore = $scope.chunks;
+                $scope.updateChunksInView();
+                var chunksAfter = $scope.chunks;
+                if (!_.isEqual(chunksBefore, chunksAfter)) {
+                    $scope.onChunkChange();
+                }
+            };
         }],
         link: function(scope, element) {
             element.dragscrollable({
                 dragSelector: '.epg-grid, .epg-time'
             });
             element.on('scroll', function() {
-                scope.$apply(function() {
-                    scope.updateChunksInView();
-                });
+                scope.checkIfChunksHaveChanged();
             });
 
-            scope.updateChunksInView();
+            scope.checkIfChunksHaveChanged();
         }
     };
 });
