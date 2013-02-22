@@ -1,4 +1,4 @@
-<div id="epg-app" data-drag-scrollable>
+<div id="epg-app" data-epg>
     <ol class="epg-channels">
         <li data-ng-repeat="channel in channels">
             <span class="channel-text">{{channel.t}}</span>
@@ -16,7 +16,7 @@
     </ol>
 
     <div class="epg-grid">
-        <div class="epg-row" data-ng-repeat="(channel, programmes) in listings" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
+        <div class="epg-row" data-ng-repeat="(channel, programmes) in allProgrammes()" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
             <epg-programme data-ng-repeat="programme in programmes"/>
         </div>
     </div>

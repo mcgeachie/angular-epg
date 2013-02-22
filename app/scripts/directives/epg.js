@@ -1,14 +1,44 @@
 'use strict';
 
-angular.module('epgDirectives', ['epgFilters'])
-    .directive('dragScrollable', function() {
-        return function(scope, element) {
+var epgDirectives = angular.module('epgDirectives', ['epgFilters']);
+
+epgDirectives.constant('chunkHeight', 65 * 10);
+epgDirectives.constant('chunkWidth', 250 * 4);
+
+epgDirectives.directive('epg', function() {
+    return {
+        controller: ['$scope', '$element', 'chunkWidth', 'chunkHeight', function($scope, $element, chunkWidth, chunkHeight) {
+            $scope.updateChunksInView = function() {
+                var minX = Math.floor($element.scrollLeft() / chunkWidth);
+                var maxX = Math.ceil(($element.width() + $element.scrollLeft()) / chunkWidth);
+                var minY = Math.floor($element.scrollTop() / chunkHeight);
+                var maxY = Math.ceil(($element.height() + $element.scrollTop()) / chunkHeight);
+                $scope.chunks = {
+                    x: [minX, maxX],
+                    y: [minY, maxY]
+                };
+            };
+            $scope.onChunkChange = function() {
+                $scope.$emit('epg:chunksChanged', $scope.chunks);
+            };
+            $scope.$watch('chunks', $scope.onChunkChange, true);
+        }],
+        link: function(scope, element) {
             element.dragscrollable({
                 dragSelector: '.epg-grid, .epg-time'
             });
-        };
-    })
-    .directive('epgProgramme', ['$filter', function($filter) {
+            element.on('scroll', function() {
+                scope.$apply(function() {
+                    scope.updateChunksInView();
+                });
+            });
+
+            scope.updateChunksInView();
+        }
+    };
+});
+
+epgDirectives.directive('epgProgramme', ['$filter', function($filter) {
     return {
         template: '<a href="#" class="epg-programme" data-ng-class="{short: programme.m[1] <= 900}">{{programme.t}}</a>',
         restrict: 'E',
