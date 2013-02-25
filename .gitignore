@@ -6,3 +6,4 @@ test-results.xml
 /temp
 /.sass-cache/
 /components/
+test/spec/*/*.spec.js
