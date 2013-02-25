@@ -2,6 +2,7 @@
 
 var epgDirectives = angular.module('epgDirectives', ['epgFilters']);
 
+epgDirectives.constant('channelHeight', 65);
 epgDirectives.constant('chunkHeight', 65 * 10);
 epgDirectives.constant('chunkWidth', 250 * 6);
 
@@ -24,12 +25,18 @@ epgDirectives.directive('epg', function() {
 
             $scope.$on('epg:channelsLoaded', function() {
                 $scope.updateChunksInView();
-                $scope.$watch('chunks', function() { console.log('chunks updated', arguments); $scope.onChunkChange(); }, true);
+                $scope.$watch('chunks', function() {
+                    console.log('chunks updated', arguments);
+                    $scope.onChunkChange();
+                }, true);
             });
         }],
         link: function(scope, element) {
-            element.dragscrollable({
-                dragSelector: '.epg-grid, .epg-time'
+            $('#epg-app, .epg-time, .epg-channels').scrollsync({
+                targetSelector: $('#epg-app'), axis: 'xy'
+            });
+           element.dragscrollable({
+               dragSelector: '.epg-grid'
             });
             element.on('scroll', function() {
                 scope.$apply(function() {
@@ -47,7 +54,9 @@ epgDirectives.directive('epgProgramme', ['$filter', function($filter) {
         replace: true,
         link: function(scope, element) {
             element.css('width', $filter('durationInPixels')(scope.programme.m[1]))
-                .css('left', $filter('startTimeInPixels')(scope.programme.s));
+                .css('left', $filter('startTimeInPixels')(scope.programme.s))
+                .addClass($filter('oddEvenRow')(scope.channelIds, parseInt(scope.programme.cid)))
+                .css('top', $filter('channelIndexInPixels')(scope.channelIds, parseInt(scope.programme.cid)));
         }
     };
 }]);

@@ -11,6 +11,7 @@ $grid-border-color: #ccc;
 $grid-text-color: #222;
 
 @import "compass/typography";
+@import "compass/css3/border-radius";
 @import "reset";
 
 #epg-app {
@@ -21,22 +22,26 @@ $grid-text-color: #222;
   overflow-y: auto;
 }
 
-.epg-channels, .epg-time, .epg-grid {
+.epg-grid {
   position: absolute;
 }
 
-.epg-time {
-  top: 0;
-  left: $channel-width;
-  @include nowrap;
 
+.epg-time {
+  @include nowrap;
+  position: fixed;
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 0 94px;
   padding: 0;
   height: $time-height;
   line-height: $time-height;
+  background-color: #353D61;
+  color: #FFF;
+  width: 865px;
+  z-index: 1;
 
   border-bottom: 1px solid $grid-border-color;
+  overflow: hidden;
 
   li {
     display: inline-block;
@@ -45,12 +50,16 @@ $grid-text-color: #222;
 }
 
 .epg-channels {
-  top: $time-height;
   width: $channel-width;
-
+  position: fixed;
   margin: 0;
-  padding: 0;
+  padding: 34px 0 0;
   border-right: 1px solid $grid-border-color;
+  list-style: none;
+  background-color: #FFF;
+  z-index: 1;
+  overflow: hidden;
+  height: 584px;
 
   li {
     height: $channel-height;
@@ -61,6 +70,19 @@ $grid-text-color: #222;
   left: $channel-width;
   top: $time-height;
   width: $one-hour-width * 24;
+
+  a {
+    @include border-radius(5px);
+    margin: 5px;
+
+    &.odd {
+      background-color: #ADE0FF;
+    }
+
+    &.even {
+      background-color: #EEE;
+    }
+  }
 }
 
 .epg-row {

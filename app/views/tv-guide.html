@@ -1,13 +1,12 @@
 <div id="epg-app" data-epg>
     <ol class="epg-channels">
         <li data-ng-repeat="channel in channels" id="channel-{{channel.c[0]}}">
-            <span class="channel-text">{{channel.t}}</span>
 
             <div class="channel-container" title="{{channel.t}}">
                 <img class="channel-image"
                      src="http://tv.sky.com/logo/80/35/skychb{{channel.c[0]}}.png"
-                     alt="{{channel.t}}"><span
-                    class="channel-number">{{channel.c[1]}}</span></div>
+                     alt="{{channel.t}}">
+            </div>
         </li>
     </ol>
 
@@ -16,9 +15,7 @@
     </ol>
 
     <div class="epg-grid">
-        <div class="epg-row" data-ng-repeat="(channel, programmes) in allProgrammesInChannels" data-ng-class-odd="'odd'" data-ng-class-even="'even'" data-ng-style="{top: channelPosition(channel)}">
-            <epg-programme data-ng-repeat="programme in programmes"/>
-        </div>
+        <epg-programme data-ng-repeat="programme in allProgrammesInChannels"/>
     </div>
 
 </div>
