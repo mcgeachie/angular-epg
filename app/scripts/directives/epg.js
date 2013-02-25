@@ -21,7 +21,11 @@ epgDirectives.directive('epg', function() {
             $scope.onChunkChange = function() {
                 $scope.$emit('epg:chunksChanged', $scope.chunks);
             };
-            $scope.$watch('chunks', $scope.onChunkChange, true);
+
+            $scope.$on('epg:channelsLoaded', function() {
+                $scope.updateChunksInView();
+                $scope.$watch('chunks', function() { console.log('chunks updated', arguments); $scope.onChunkChange(); }, true);
+            });
         }],
         link: function(scope, element) {
             element.dragscrollable({
@@ -32,8 +36,6 @@ epgDirectives.directive('epg', function() {
                     scope.updateChunksInView();
                 });
             });
-
-            scope.updateChunksInView();
         }
     };
 });

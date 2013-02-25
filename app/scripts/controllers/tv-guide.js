@@ -2,13 +2,18 @@
 
 fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter) {
 
-    var chunkUrl = function(chunkNumber) {
+    var chunkUrl = function(chunkNumber, channelsInView) {
         var today = $filter('date')(new Date(), 'yyyy-MM-dd');
-        return '/api/programme/channel/2002,2006,6000,1621,1801,4061,4066,4053,3810,2304,3809,4056,4080,4074,2061,2018,6532,6533,6534,1833/' + today + '/' + chunkNumber + '.json';
+        return '/api/programme/channel/'+ channelsInView.join(',') +'/' + today + '/' + chunkNumber + '.json';
     };
 
     $http.get('/api/channel/index/4101-1').success(function(data) {
         $scope.channels = data.init.channels;
+        $scope.channelNumbers = _.map($scope.channels, function(channel) {
+            return channel.c[0];
+        });
+        console.log('channelNumbers', $scope.channelNumbers);
+        $scope.$broadcast('epg:channelsLoaded');
     });
 
     $scope.chunksInView = [];
@@ -16,6 +21,11 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
     $scope.hours = _.map(_.range(24), function(hour) {
         return new Date(0, 0, 0, hour);
     });
+
+    $scope.channelPosition = function(channel) {
+        console.log(channel, typeof channel, parseInt(channel), _.indexOf($scope.channelNumbers, parseInt(channel)));
+        return (_.indexOf($scope.channelNumbers, parseInt(channel)) * 65) + 'px';
+    };
 
     $scope.allProgrammesInChannels = {};
 
@@ -37,25 +47,23 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
 
     $scope.findChannelsInView = function(chunkNumbersInView) {
         var channelsInView = [];
-        if ($scope.channels) {
-            _.each(_.range(chunkNumbersInView.y[0], chunkNumbersInView.y[1] + 1), function(y) {
-                _.each(_.range(y * 10, (y + 1) * 10), function(channelIndex) {
-                    var channel = $scope.channels[channelIndex];
-                    if (channel) {
-                        channelsInView.push(channel.c[0])
-                    }
-                });
+        _.each(_.range(chunkNumbersInView.y[0], chunkNumbersInView.y[1] + 1), function(y) {
+            _.each(_.range(y * 10, (y + 1) * 10), function(channelIndex) {
+                var channel = $scope.channels[channelIndex];
+                if (channel) {
+                    channelsInView.push(channel.c[0])
+                }
             });
-        }
-        console.log(channelsInView);
+        });
+        return channelsInView;
     };
 
     $scope.populateChunksInView = function(chunkNumbersInView) {
         _.each(_.range(chunkNumbersInView.x[0], chunkNumbersInView.x[1] + 1), function(x) {
             if ($scope.chunksInView[x] === undefined) {
                 console.log('requesting chunk', x);
-                $scope.findChannelsInView(chunkNumbersInView);
-                $http.get(chunkUrl(x)).success(function(data) {
+                var channelsInView = $scope.findChannelsInView(chunkNumbersInView);
+                $http.get(chunkUrl(x, channelsInView)).success(function(data) {
                     console.log('got back', x, data.listings);
                     $scope.chunksInView[x] = data.listings;
                     $scope.allProgrammesInChannels = $scope.allProgrammes();
@@ -76,7 +84,7 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
     };
 
     $scope.$on('epg:chunksChanged', function(event, chunkNumbersInView) {
-        console.log('it changed!', event.name, chunkNumbersInView.x, chunkNumbersInView.y);
+        console.log('it changed!', arguments);
         $scope.removeChunksNotInView(chunkNumbersInView);
         $scope.populateChunksInView(chunkNumbersInView);
     });
