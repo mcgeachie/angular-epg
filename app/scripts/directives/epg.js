@@ -34,7 +34,7 @@ epgDirectives.directive('epg', function() {
             $('#epg-app, .epg-time, .epg-channels').scrollsync({
                 targetSelector: $('#epg-app'), axis: 'xy'
             });
-           element.dragscrollable({
+            element.dragscrollable({
                dragSelector: '.epg-grid'
             });
             element.on('scroll', function() {

@@ -8,6 +8,10 @@ repositories {
 configurations {
     fawagg {
         transitive = false
+        resolutionStrategy {
+            cacheDynamicVersionsFor 0, "seconds"
+            cacheChangingModulesFor 0, "seconds"
+        }
     }
 }
 

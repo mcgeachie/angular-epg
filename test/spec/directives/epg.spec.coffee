@@ -53,17 +53,3 @@ describe 'Module: epg directives', ->
             applyDirective()
 
             expect(element.hasClass('short')).toBeFalsy()
-
-    describe 'Directive: epg', ->
-        beforeEach ->
-            element = angular.element '<div data-epg/>'
-
-        it 'should emit epg:chunksChanged initially', ->
-            chunkNumbersInView = null
-            scope.$on 'epg:chunksChanged', (event, chunks) ->
-                chunkNumbersInView = chunks
-
-            applyDirective()
-
-            expect(chunkNumbersInView).toEqual x: [0, 0], y: [0, 0]
-

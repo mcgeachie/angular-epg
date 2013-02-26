@@ -1,7 +1,8 @@
-programDatabase:
-  url: 'http://localhost:9999/'
-  password: 'readonly'
-  username: 'readonly'
+epg:
+  url: 'http://localhost:8888/fixtures/epg/'
+
+recs:
+  url: 'http://localhost:8888/fixtures/recs/'
 
 http:
   rootPath: "/api/*"
