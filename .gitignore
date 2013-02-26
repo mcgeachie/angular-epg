@@ -7,3 +7,5 @@ test-results.xml
 /.sass-cache/
 /components/
 test/spec/*/*.spec.js
+/build
+.gradle
