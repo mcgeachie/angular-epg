@@ -182,17 +182,39 @@ module.exports = function( grunt ) {
     });
   });
 
-  grunt.registerTask('functional', 'Run functional tests with Geb', function() {
-      grunt.task.run('clean coffee compass');
-      grunt.task.run('grunt-server');
-      grunt.task.run('geb');
-  });
+    grunt.registerTask('functional', 'run the functional tests', function () {
+
+        var block = grunt.option('blocking') || false;
+
+        grunt.task.run('resolveFawaggJar');
+        grunt.task.run('startupFawagg');
+
+        if (block) {
+            grunt.task.run('server');
+        } else {
+            grunt.task.run('clean coffee compass');
+            grunt.task.run('grunt-server');
+            grunt.task.run('geb');
+        }
+    });
 
     grunt.registerTask('geb', 'Run functional tests with Geb', function () {
         var done = this.async();
         require('child_process').exec('gradlew test', function (err, stdout) {
             grunt.log.write(stdout);
             done(err);
+        });
+    });
+
+    grunt.registerTask('resolveFawaggJar', 'downloads the dropwizard app', function () {
+        var done = this.async();
+        require('child_process').exec('gradlew resolveFawaggJar', function (err, stdout) {
+            done(err);
+        });
+    });
+
+    grunt.registerTask('startupFawagg', 'Starts up the dropwizard app', function () {
+        require('child_process').exec('java -jar build/fawagg/fawagg.jar server aggregator-test.yaml', function (err, stdout) {
         });
     });
 };

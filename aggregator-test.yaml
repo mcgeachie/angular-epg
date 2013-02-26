@@ -1,0 +1,7 @@
+programDatabase:
+  url: 'http://localhost:9999/'
+  password: 'readonly'
+  username: 'readonly'
+
+http:
+  rootPath: "/api/*"
