@@ -58,7 +58,6 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
 
                 if ($scope.chunksInView[x][y] == undefined) {
                     $http.get(chunkUrl(x, y)).success(function(data) {
-                        console.log('got back', x, y, data.listings);
                         $scope.chunksInView[x][y] = data.listings;
                         $scope.allProgrammesInChannels = $scope.allProgrammes();
                     });
@@ -71,7 +70,6 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         for (var x in $scope.chunksInView) {
             for (var y in $scope.chunksInView[x]) {
                 if ((x < chunkNumbersInView.x[0] || x > chunkNumbersInView.x[1]) || (y < chunkNumbersInView.y[0] || y > chunkNumbersInView.y[1])) {
-                    console.log('removing chunk', x, y);
                     $scope.chunksInView[x][y] = undefined;
                 }
             }
@@ -79,7 +77,6 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
     };
 
     $scope.$on('epg:chunksChanged', function(event, chunkNumbersInView) {
-        console.log('it changed!', arguments);
         $scope.removeChunksNotInView(chunkNumbersInView);
         $scope.populateChunksInView(chunkNumbersInView);
     });

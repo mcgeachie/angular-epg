@@ -26,7 +26,6 @@ epgDirectives.directive('epg', function() {
             $scope.$on('epg:channelsLoaded', function() {
                 $scope.updateChunksInView();
                 $scope.$watch('chunks', function() {
-                    console.log('chunks updated', arguments);
                     $scope.onChunkChange();
                 }, true);
             });
