@@ -60,7 +60,7 @@ autoWatch = false;
 // - Opera
 // - Safari
 // - PhantomJS
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 
 // Continuous Integration mode
