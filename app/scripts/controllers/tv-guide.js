@@ -5,10 +5,10 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
     var chunkUrl = function(x, y) {
         var today = $filter('date')(new Date(), 'yyyy-MM-dd');
         var channels = $scope.getChannelGroup(y);
-        return '/api/programme/channel/' + channels.join(',') + '/' + today + '/' + x + '.json';
+        return '/api/epg/listings/' + channels.join(',') + '/' + today + '/' + x;
     };
 
-    $http.get('/api/channel/index/4101-1').success(function(data) {
+    $http.get('/api/epg/channels/4101/1').success(function(data) { //todo 4101/1 is the region/sub-region that needs to be selectable
         $scope.channels = data.init.channels;
         $scope.channelIds = _.map($scope.channels, function(channel) {
             return channel.c[0];
