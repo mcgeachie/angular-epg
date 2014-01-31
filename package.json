@@ -2,6 +2,13 @@
   "author": "",
   "name": "",
   "version": "0.0.0",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "coffee": "0.0.1",
+    "compass": "0.1.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.6.0"
+  }
 }
