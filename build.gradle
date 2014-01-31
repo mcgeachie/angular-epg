@@ -20,7 +20,7 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.1.0'
     testCompile 'org.gebish:geb-spock:0.9.0-RC-1'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
-    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.29.1'
+    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.39.0'
 }
 
 sourceSets {
