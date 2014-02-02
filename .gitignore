@@ -1,8 +1,10 @@
 .idea
 *.iml
 /node_modules/
+/app/styles/css/
+/app/styles/main.css
+/test/spec/compiled/
 test-results.xml
-/dist
 /temp
 /.sass-cache/
 /components/

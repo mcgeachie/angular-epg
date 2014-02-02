@@ -1,0 +1,29 @@
+body { font-family: SkyTextRegular,helvetica,arial; }
+
+.container {
+  width: 974px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+nav {
+  border-bottom: 1px solid #ccc;
+
+  a {
+    padding: 12px;
+    line-height: 22px;
+    display: inline-block;
+
+    &.active {
+      background-color: #3165ca;
+      color: #fff;
+    }
+  }
+}
+
+#carousel {
+  width:100%;
+  height: 370px;
+  background-color: #ddd;
+  margin-bottom: 24px;
+}

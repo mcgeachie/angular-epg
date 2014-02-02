@@ -8,13 +8,15 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         return '/api/epg/listings/' + channels.join(',') + '/' + today + '/' + x;
     };
 
-    $http.get('/api/epg/channels/4101/1').success(function(data) { //todo 4101/1 is the region/sub-region that needs to be selectable
-        $scope.channels = data.init.channels;
-        $scope.channelIds = _.map($scope.channels, function(channel) {
-            return channel.c[0];
+    $http
+        .get('/api/epg/channels/4101/1')
+        .success(function(data) { //todo 4101/1 is the region/sub-region that needs to be selectable
+            $scope.channels = data.init.channels;
+            $scope.channelIds = _.map($scope.channels, function(channel) {
+                return channel.c[0];
+            });
+            $scope.$broadcast('epg:channelsLoaded');
         });
-        $scope.$broadcast('epg:channelsLoaded');
-    });
 
     $scope.chunksInView = [];
 
@@ -81,6 +83,4 @@ fangApp.controller('TvGuideCtrl', ['$scope', '$http', '$filter', function($scope
         $scope.populateChunksInView(chunkNumbersInView);
     });
 
-}
-])
-;
+}]);
