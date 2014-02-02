@@ -53,6 +53,8 @@ This task will;
 - Recompile SASS into CSS
 - Create JS files of all coffee test files
 - Start Connect server serving the app on port 3501
+
+
 This task can also be run using the default grunt task for this project
 ```bash
 grunt
